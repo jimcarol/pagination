@@ -2,6 +2,7 @@
   display: flex;
   justify-content:space-around;
   align-items:flex-start;
+  text-align: center;
 }
 
 .content {
@@ -16,7 +17,7 @@
 }
 
 .title {
-  width: 320px;
+  /*width: 320px;*/
   text-align: center;
   color: red;
   margin-bottom: 20px;
@@ -52,6 +53,12 @@
   composes: redNum;
   color: blue;
   width: auto;
+  margin-left: 15px;
+}
+
+.red-blue-title {
+  display: flex;
+  justify-content:space-around;
 }
 
 .text{
@@ -64,11 +71,11 @@
 
 .redText {
   color: red;
-  margin-left: 100px;
+  margin-left: 30px;
 }
 
 .blueText {
   color: blue;
   float: right;
-  margin-right: 25px
+  margin-right: 10px
 }

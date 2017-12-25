@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   entry: __dirname + "/app/index.js",
@@ -31,20 +32,24 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: { 
-              modules: true,
-              localIdentName: "[name]__[local]--[hash:base64:5]"
-            }
-          },
-          "sass-loader"]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
+            {
+              loader: "css-loader",
+              options: { 
+                modules: true,
+                localIdentName: "[name]__[local]--[hash:base64:5]"
+              }
+            },
+            "sass-loader"
+          ]
+        })
       }
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin({filename: "styles.css", ignoreOrder: true})
   ]
 }

@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "start": "webpack-dev-server",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "deploy": "npm run clear && webpack -p",
+    "clear": "rm -rf ./dist/"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +21,7 @@
     "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
     "eslint-plugin-react": "^7.5.1",
+    "extract-text-webpack-plugin": "^3.0.2",
     "node-sass": "^4.7.2",
     "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",

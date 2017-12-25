@@ -42,7 +42,7 @@ class TwoColorBall extends Component {
               return <span key={ num } className={style.redNum}>{ num }</span>
             })
           }
-          <span className={style.blueNum}>{`- ${ item.bullBall }`}</span> 
+          <span className={style.blueNum}>{item.bullBall}</span> 
         </li>
       )
     })
@@ -72,9 +72,11 @@ class TwoColorBall extends Component {
             <div className={ style.start } onClick={() => { this.randOut() }}>start</div>
             <div className={ style.clear } onClick={() => { this.clear() }}>clear</div>
           </div>
-          <div className={style.text}>
-            <span className={ style.redText }>红球</span>
-            <span className={ style.blueText }>篮球</span>
+          <div className={style["red-blue-title"]}>
+            <div className={style.text}>
+              <span className={ style.redText }>红球</span>
+              <span className={ style.blueText }>篮球</span>
+            </div>
           </div>
           <div>
             <ul>

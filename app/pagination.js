@@ -138,7 +138,7 @@ export default class Pagination extends Component {
         <ul className="page" >
           { this.create() }
         </ul>
-        <span className="total-count">{`总数: ${totalCount}`}</span>
+        <span className="total-count">{`总数: ${totalCount}注`}</span>
       </div>
     )
   }
