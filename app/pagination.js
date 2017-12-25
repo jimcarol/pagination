@@ -7,12 +7,13 @@ export default class Pagination extends Component {
     this.state = {
       currPage: 1,
       startPage: 1,
-      groupCount: 7
+      groupCount: 7,
+      pageCount: 10
     }
   }
 
-  go(i) {
-    const { totalPage } = this.props.config
+  go(i, reset=false) {
+    const { totalPage, paging } = this.props.config
     const { groupCount } = this.state
 
     if (i%groupCount === 1) {
@@ -28,6 +29,20 @@ export default class Pagination extends Component {
     }
 
     this.setState({ currPage: i })
+
+    if(reset === true){
+      this.setState({
+        currPage:1,
+        startPage:1
+      })
+    }
+    
+    setTimeout(()=>{
+      paging({
+        currPage:this.state.currPage,
+        pageCount:this.state.pageCount
+      })
+    })
   }
 
   goPrev() {
@@ -80,12 +95,50 @@ export default class Pagination extends Component {
     return pages
   }
 
+  choosePageCount() {
+    const pageCountUI = this.parentUI.parentNode
+    pageCountUI.className = (pageCountUI.className === "hide") ? "" : "hide"
+  }
+
+  confirmPageCount(pageCount){
+    const {
+      currPage,
+    } = this.state
+    const pageCountUI = this.parentUI
+
+    // 设置每页显示条数
+    this.setState({
+      pageCount
+    })
+
+    pageCountUI.innerHTML = pageCount
+    pageCountUI.parentNode.className = "hide"
+
+    setTimeout(()=>{
+      this.go(currPage, true)
+    },0)
+  }
+
   render() {
+    const { totalCount } = this.props.config
     return (
       <div className="main">
+        <div className = "bar">
+          <span>每页显示</span>
+          <div className = "select">
+            <ul className = "hide">
+              <li id="pageCount" onClick = {() => { this.choosePageCount() }} ref={(node) => { this.parentUI = node }}>10</li>
+              <li onClick = {() => { this.confirmPageCount(10) }}>10</li>
+              <li onClick = {() => { this.confirmPageCount(20) }}>20</li>
+              <li onClick = {() => { this.confirmPageCount(30) }}>30</li>
+              <li onClick = {() => { this.confirmPageCount(50) }}>50</li>
+            </ul>
+          </div>
+        </div>
         <ul className="page" >
           { this.create() }
         </ul>
+        <span className="total-count">{`总数: ${totalCount}`}</span>
       </div>
     )
   }

@@ -6,7 +6,10 @@ class TwoColorBall extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      results: []
+      results: [],
+      startNum: 0,
+      endNum: 10,
+      pageCount: 10
     }
   }
 
@@ -15,7 +18,7 @@ class TwoColorBall extends Component {
     let redBalls = []
 
     while(redBalls.length < 6) {
-      const redBall = Math.ceil(Math.random()*35);
+      const redBall = Math.ceil(Math.random()*35)
       if (redBalls.indexOf(redBall) < 0) {
         redBalls.push(redBall)
       }
@@ -30,8 +33,8 @@ class TwoColorBall extends Component {
   }
 
   renderResults() {
-    const { results } = this.state
-    return results.map((item, index) => {
+    const { results, startNum, endNum } = this.state
+    return results.slice(startNum, endNum).map((item, index) => {
       return (
         <li key={ index }>
           {
@@ -45,7 +48,20 @@ class TwoColorBall extends Component {
     })
   }
 
+  paging(obj) {
+    const { currPage, pageCount } = obj
+    const startNum = (currPage-1)*pageCount
+    const endNum = currPage*pageCount
+
+    this.setState({
+      startNum,
+      endNum,
+      pageCount
+    })
+  }
+
   render() {
+    const { results, pageCount } = this.state
     return (
       <div className={style.main}>
         <div className={style.content}>
@@ -64,6 +80,17 @@ class TwoColorBall extends Component {
             <ul>
               { this.renderResults() }
             </ul>
+          </div>
+          <div>
+            { results.length > 0 &&
+              <Pagination config={
+                {
+                  totalPage: Math.ceil(results.length/pageCount),
+                  paging: (obj) => { this.paging(obj)},
+                  totalCount: results.length
+                }
+              } />
+            }
           </div>
         </div>
       </div>
