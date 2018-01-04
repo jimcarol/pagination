@@ -2,6 +2,13 @@ import React, { Component } from "react"
 import Pagination from "./pagination.js"
 import style from "./two_color_ball.scss"
 
+const getShowBall = (ballNum) => {
+  const len = ballNum.toString().length
+  const ballShow = len > 1 ? ballNum : "0" + ballNum
+
+  return ballShow
+}
+
 class TwoColorBall extends Component {
   constructor(props) {
     super(props)
@@ -18,14 +25,15 @@ class TwoColorBall extends Component {
     let redBalls = []
 
     while(redBalls.length < 6) {
-      const redBall = Math.ceil(Math.random()*35)
-      if (redBalls.indexOf(redBall) < 0) {
-        redBalls.push(redBall)
+      const redBall = Math.ceil(Math.random()*33)
+      const redBallShow = getShowBall(redBall)
+      if (redBalls.indexOf(redBallShow) < 0) {
+        redBalls.push(redBallShow)
       }
     }
     const bullBall = Math.ceil(Math.random()*16)
     
-    this.setState({results: [ ...results, { redBalls: redBalls.sort((a,b) => { return a-b} ), bullBall: bullBall }] })
+    this.setState({results: [ ...results, { redBalls: redBalls.sort((a,b) => { return a-b} ), bullBall: getShowBall(bullBall) }] })
   }
 
   clear() {
@@ -38,8 +46,8 @@ class TwoColorBall extends Component {
       return (
         <li key={ index }>
           {
-            item.redBalls.map((num) => {
-              return <span key={ num } className={style.redNum}>{ num }</span>
+            item.redBalls.map((num, i) => {
+              return <span key={ num + index + i } className={style.redNum}>{ num }</span>
             })
           }
           <span className={style.blueNum}>{item.bullBall}</span> 
@@ -65,17 +73,21 @@ class TwoColorBall extends Component {
     return (
       <div className={style.main}>
         <div className={style.content}>
+          <div className={style["center-set"]}>
+            <div className={style["coshu-image"]} />
+          </div>
           <div className={style.title}>
-            体育彩票------双色球 (for Co叔)
+            体育彩票------双色球 (for Co叔)<br />
+            祝扣叔早日中大奖
           </div>
           <div>
             <div className={ style.start } onClick={() => { this.randOut() }}>start</div>
             <div className={ style.clear } onClick={() => { this.clear() }}>clear</div>
           </div>
-          <div className={style["red-blue-title"]}>
+          <div className={style["center-set"]}>
             <div className={style.text}>
               <span className={ style.redText }>红球</span>
-              <span className={ style.blueText }>篮球</span>
+              <span className={ style.blueText }>蓝球</span>
             </div>
           </div>
           <div>

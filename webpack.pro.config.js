@@ -10,16 +10,6 @@ module.exports = {
     path: __dirname+ "/dist",
     filename: "[name].js"
   },
-  devtool: "eval-source-map",
-  devServer: {
-    contentBase: "./",
-    publicPath: "/dist/",
-    inline: true,
-    port: 3002,
-    historyApiFallback: true,
-    open: true,
-    hot: true
-  },
   module: {
     rules: [
       {
@@ -42,7 +32,6 @@ module.exports = {
               loader: "css-loader",
               options: { 
                 modules: true,
-                importLoaders: 1,
                 localIdentName: "[name]__[local]--[hash:base64:5]"
               }
             },
@@ -51,12 +40,12 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|gif|jpe?g)$/,
+        test: /\.(png|jpg|gif|jpeg)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 65000,
+              limit: 8192,
               name: "../images/[name].[hash].[ext]"
             }
           }
@@ -71,6 +60,18 @@ module.exports = {
         return getPath('[name].css').replace('bundle', 'styles');
       },
       ignoreOrder: true
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      parallel: {
+        cache: true,
+        workers: 2
+      }
+    }),
   ]
 }

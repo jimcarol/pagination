@@ -59,7 +59,7 @@
   margin-left: 15px;
 }
 
-.red-blue-title {
+.center-set {
   display: flex;
   justify-content:space-around;
 }
@@ -81,4 +81,11 @@
   color: blue;
   float: right;
   margin-right: 10px
+}
+
+.coshu-image {
+  width: 400px;
+  height: 300px;
+  background-image: url("../images/coshu.jpeg");
+  background-size: cover; 
 }
