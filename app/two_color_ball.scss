@@ -89,3 +89,21 @@
   background-image: url("../asset/coshu.jpeg");
   background-size: cover; 
 }
+
+.mobile {
+  display: none
+}
+
+@media screen and (max-width: 875px) {
+  .coshu-image {
+    width: 300px;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
+}

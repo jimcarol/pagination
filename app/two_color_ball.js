@@ -95,13 +95,28 @@ class TwoColorBall extends Component {
               { this.renderResults() }
             </ul>
           </div>
-          <div>
+          <div className={style.desktop}>
             { results.length > 0 &&
               <Pagination config={
                 {
                   totalPage: Math.ceil(results.length/pageCount),
                   paging: (obj) => { this.paging(obj)},
-                  totalCount: results.length
+                  totalCount: results.length,
+                  groupCount: 7,
+                  pageLimit: 10
+                }
+              } />
+            }
+          </div>
+          <div className={style.mobile}>
+            { results.length > 0 &&
+              <Pagination config={
+                {
+                  totalPage: Math.ceil(results.length/pageCount),
+                  paging: (obj) => { this.paging(obj)},
+                  totalCount: results.length,
+                  groupCount: 2,
+                  pageLimit: 4
                 }
               } />
             }

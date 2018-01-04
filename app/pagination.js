@@ -7,7 +7,7 @@ export default class Pagination extends Component {
     this.state = {
       currPage: 1,
       startPage: 1,
-      groupCount: 7,
+      groupCount: this.props.config.groupCount,
       pageCount: 10
     }
   }
@@ -67,12 +67,12 @@ export default class Pagination extends Component {
   }
 
   create() {
-    const { totalPage } = this.props.config
+    const { totalPage, pageLimit } = this.props.config
     const { currPage, startPage, groupCount } = this.state
     let pages = []
 
     pages.push(<li key={0} onClick={() => { this.goPrev() }} className={ currPage === 1 ? "inactive" : ""} >上一页</li>)
-    if (totalPage <= 10) {
+    if (totalPage <= pageLimit) {
       for(let i=1; i<=totalPage; i++) {
         pages.push(<li key={i} onClick={() => { this.go(i) }} className={ currPage === i ? "active" : "" } >{ i }</li>)
       }
@@ -83,7 +83,7 @@ export default class Pagination extends Component {
         }
       }
 
-      if (totalPage - startPage >= 9) {
+      if (totalPage - startPage >= pageLimit - 1) {
         pages.push(<li key={-1} className={"ellipsis"}>...</li>)
       }
 
