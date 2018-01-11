@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import axios from 'axios'
 import { observable, useStrict, action, runInAction, autorun } from 'mobx'
 import { observer } from 'mobx-react'
 import Pagination from "./pagination.js"
@@ -9,12 +10,9 @@ class Weather {
   @observable weather = {today: "", after: []}
   @action initData = async () => {
     let weather_data
-    await fetch("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
+    await axios.get("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
     .then((result) => {
-      result.json().then(function(data){
-        weather_data = data
-        console.log("lllll",weather_data)
-      });
+        weather_data = result
     })
     runInAction(() => {
       this.weather = weather_data
