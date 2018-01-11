@@ -1,6 +1,35 @@
 import React, { Component } from "react"
+import { observable, useStrict, action, runInAction, autorun } from 'mobx'
+import { observer } from 'mobx-react'
 import Pagination from "./pagination.js"
 import style from "./two_color_ball.scss"
+useStrict(true);
+
+class Weather {
+  @observable weather = {today: "", after: []}
+  @action initData = async () => {
+    let weather_data
+    await fetch("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
+    .then((result) => {
+      result.json().then(function(data){
+        weather_data = data
+        console.log("lllll",weather_data)
+      });
+    })
+    runInAction(() => {
+      this.weather = weather_data
+    });
+  }
+  // @action initData = () => {
+  //   this.weather = 2
+  // }
+
+  constructor() {
+    autorun(() => this.initData());
+  }
+}
+
+const weatherState = new Weather();
 
 const getShowBall = (ballNum) => {
   const len = ballNum.toString().length
@@ -9,6 +38,7 @@ const getShowBall = (ballNum) => {
   return ballShow
 }
 
+@observer
 class TwoColorBall extends Component {
   constructor(props) {
     super(props)
@@ -68,6 +98,16 @@ class TwoColorBall extends Component {
     })
   }
 
+  renderWeather() {
+    let pages = []
+    weatherState.weather.after.map((i, index) => { 
+      pages.push(<div key={i.date} className={`${style["after_weather"]} ${style["after_weather_date"]}`}>{`${i.date}:`}</div>) 
+      pages.push(<div key={index} className={style["after_weather"]}>{i.temp}</div>) 
+    })
+
+    return pages
+  }
+
   render() {
     const { results, pageCount } = this.state
     return (
@@ -81,7 +121,7 @@ class TwoColorBall extends Component {
             祝扣叔早日中大奖
           </div>
           <div>
-            <div className={ style.start } onClick={() => { this.randOut() }}>start</div>
+            <div className={ style.start } onClick={() => { this.randOut()}}>start</div>
             <div className={ style.clear } onClick={() => { this.clear() }}>clear</div>
           </div>
           <div className={style["center-set"]}>
@@ -120,6 +160,12 @@ class TwoColorBall extends Component {
                 }
               } />
             }
+          </div>
+        </div>
+        <div className={style["weather_container"]}>
+          <div className={style["weather-color"]}>今日温度: {weatherState.weather.today}</div>
+          <div className={style["weather-color"]}>
+            {this.renderWeather()}
           </div>
         </div>
       </div>

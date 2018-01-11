@@ -3,8 +3,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   entry: {
-    bundle: __dirname + "/app/index.js",
-    'wj': __dirname + "/app/wj_funny.js"
+    bundle: ['babel-polyfill', __dirname + "/app/index.js"],
+    'wj': ['babel-polyfill', __dirname + "/app/wj_funny.js"]
   },
   output: {
     path: __dirname+ "/dist",
@@ -28,7 +28,8 @@ module.exports = {
           {
             loader: "babel-loader",
             options: {
-              presets: ["env", "react"]
+              presets: ["env", "react", "stage-0"],
+              plugins: ['transform-decorators-legacy', 'transform-class-properties']
             }
           }
         ]

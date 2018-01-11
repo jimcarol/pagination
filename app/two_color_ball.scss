@@ -20,7 +20,7 @@
   /*width: 320px;*/
   text-align: center;
   color: red;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .start {
@@ -92,6 +92,24 @@
 
 .mobile {
   display: none
+}
+
+.weather-color {
+  color: #4cc74c;
+  margin-bottom: 4px;
+}
+.weather_container {
+  background-color: #0090CE;
+}
+
+.after_weather {
+  display: inline-block;
+  margin-right: 5px;
+  color: white;
+}
+
+.after_weather_date {
+  color: white;
 }
 
 @media screen and (max-width: 875px) {
