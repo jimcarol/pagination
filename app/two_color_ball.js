@@ -12,7 +12,8 @@ class Weather {
     let weather_data
     await axios.get("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
     .then((result) => {
-        weather_data = result
+        console.log("/......",result)
+        weather_data = result.data
     })
     runInAction(() => {
       this.weather = weather_data
