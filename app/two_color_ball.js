@@ -113,7 +113,14 @@ class TwoColorBall extends Component {
       <div className={style.main}>
         <div className={style.content}>
           <div className={style["center-set"]}>
-            <div className={style["coshu-image"]} />
+            <div className={style["coshu-image"]} >
+              <div className={style["weather_container"]}>
+                <div className={style["weather-color"]}>今日温度: {weatherState.weather.today}</div>
+                <div className={style["weather-color"]}>
+                  {this.renderWeather()}
+                </div>
+              </div>
+            </div>
           </div>
           <div className={style.title}>
             体育彩票------双色球 (for Co叔)<br />
@@ -159,12 +166,6 @@ class TwoColorBall extends Component {
                 }
               } />
             }
-          </div>
-        </div>
-        <div className={style["weather_container"]}>
-          <div className={style["weather-color"]}>今日温度: {weatherState.weather.today}</div>
-          <div className={style["weather-color"]}>
-            {this.renderWeather()}
           </div>
         </div>
       </div>
