@@ -3,7 +3,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   entry: {
-    bundle: ['babel-polyfill', __dirname + "/app/index.js"],
+    bundle_s: ['babel-polyfill', __dirname + "/app/index.js"],
     'wj': ['babel-polyfill', __dirname + "/app/wj_funny.js"]
   },
   output: {
@@ -58,7 +58,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
       filename: (getPath) => {
-        return getPath('[name].css').replace('bundle', 'styles');
+        return getPath('[name].css').replace('bundle_s', 'styles');
       },
       ignoreOrder: true
     }),
