@@ -99,9 +99,9 @@ class TwoColorBall extends Component {
 
   renderWeather() {
     let pages = []
-    pages.push(<div key={-1} className={`${style["after_weather"]} ${style["after_weather_date"]}`}>今日温度范围</div>)
+    pages.push(<div key={-1} className={`${style["after_weather"]} ${style["after_weather_date"]}`}>Tips:</div>)
     weatherState.weather.after.map((i, index) => { 
-      pages.push(<div key={index} className={style["after_weather"]}>{`${index == 0 ? '白天' : '夜间'}`}{i.temp} {`${index == 0 ? '~' : ''}`}</div>)
+      pages.push(<div key={index} className={style["after_weather"]}>{i.date}{i.temp} {`${index == 0 ? '~' : ''}`}</div>)
     })
 
     return pages
