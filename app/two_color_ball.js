@@ -101,7 +101,7 @@ class TwoColorBall extends Component {
     let pages = []
     pages.push(<div key={-1} className={`${style["after_weather"]} ${style["after_weather_date"]}`}>今日温度范围</div>)
     weatherState.weather.after.map((i, index) => { 
-      pages.push(<div key={index} className={style["after_weather"]}>{i.temp} {`${index == 0 ? '~' : ''}`}</div>)
+      pages.push(<div key={index} className={style["after_weather"]}>{`${index == 0 ? '白天' : '夜间'}`}{i.temp} {`${index == 0 ? '~' : ''}`}</div>)
     })
 
     return pages
@@ -129,7 +129,7 @@ class TwoColorBall extends Component {
               <div className={style["weather_container"]}>
                 <div className={style["weather-color"]}>实时温度: {weatherState.weather.today.temperature}℃ {weatherState.weather.today.info}</div>
                 <div className={style["weather-color"]}>实时体感温度: {weatherState.weather.today.feelst}℃</div>
-                <div className={style["weather-color"]}>实时舒适度: {comforDesc}℃</div>
+                <div className={style["weather-color"]}>实时舒适度: {comforDesc}</div>
                 <div className={style["weather-color"]}>
                   {this.renderWeather()}
                 </div>
