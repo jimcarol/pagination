@@ -99,9 +99,9 @@ class TwoColorBall extends Component {
 
   renderWeather() {
     let pages = []
+    pages.push(<div key={-1} className={`${style["after_weather"]} ${style["after_weather_date"]}`}>今日温度范围</div>)
     weatherState.weather.after.map((i, index) => { 
-      pages.push(<div key={i.date} className={`${style["after_weather"]} ${style["after_weather_date"]}`}>{`${i.date}:`}</div>) 
-      pages.push(<div key={index} className={style["after_weather"]}>{i.temp}</div>) 
+      pages.push(<div key={index} className={style["after_weather"]}>{i.temp} {`${index == 0 ? '~' : ''}`}</div>)
     })
 
     return pages
@@ -109,13 +109,27 @@ class TwoColorBall extends Component {
 
   render() {
     const { results, pageCount } = this.state
+    const { rcomfort } = weatherState.weather.today
+    let comforDesc = ""
+    if (rcomfort) {
+      comforDesc = "不是很舒服"
+      if (rcomfort < 60 && rcomfort > 45) {
+        comforDesc = "一般般，可以接受"
+      }
+      if (rcomfort >= 60) {
+        comforDesc = "舒服，非常好的天气"
+      }
+    }
+
     return (
       <div className={style.main}>
         <div className={style.content}>
           <div className={style["center-set"]}>
             <div className={style["coshu-image"]} >
               <div className={style["weather_container"]}>
-                <div className={style["weather-color"]}>今日温度: {weatherState.weather.today.temperature}℃</div>
+                <div className={style["weather-color"]}>实时温度: {weatherState.weather.today.temperature}℃ {weatherState.weather.today.info}</div>
+                <div className={style["weather-color"]}>实时体感温度: {weatherState.weather.today.feelst}℃</div>
+                <div className={style["weather-color"]}>实时舒适度: {comforDesc}℃</div>
                 <div className={style["weather-color"]}>
                   {this.renderWeather()}
                 </div>
