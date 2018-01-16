@@ -7,7 +7,7 @@ import style from "./two_color_ball.scss"
 useStrict(true);
 
 class Weather {
-  @observable weather = {today: "", after: []}
+  @observable weather = {today: {}, after: []}
   @action initData = async () => {
     let weather_data
     await axios.get("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
@@ -115,7 +115,7 @@ class TwoColorBall extends Component {
           <div className={style["center-set"]}>
             <div className={style["coshu-image"]} >
               <div className={style["weather_container"]}>
-                <div className={style["weather-color"]}>今日温度: 实时->{weatherState.weather.today}</div>
+                <div className={style["weather-color"]}>今日温度: {weatherState.weather.today.temperature}℃</div>
                 <div className={style["weather-color"]}>
                   {this.renderWeather()}
                 </div>
