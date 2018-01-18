@@ -41,6 +41,12 @@ class Weather {
 
 class Ticket {
   @observable tickets = ""
+  @observable submitElement =true
+
+  @action setDisabled = () => {
+    this.submitElement = false
+  }
+
   @action getTickets = async (params) => {
     let data = [] 
     await axios.get("http://116.196.113.206/api/weather/train_ticket", { 
@@ -57,6 +63,7 @@ class Ticket {
 
     runInAction(() => {
       this.tickets = data
+      this.submitElement = true
     });
   }
 }
@@ -91,9 +98,7 @@ class WjFunny extends Component {
   }
 
   handleShowList(flag) {
-    this.setState({stationType: flag},() =>{
-      this.setState({showList: true})
-    })
+    this.setState({stationType: flag, showList: true})
   }
 
   handleFromStation(station) {
@@ -104,11 +109,27 @@ class WjFunny extends Component {
     this.setState({endStation: {endStation: station.name, endCode: station.code}, showList: false})
   }
 
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
   handleSubmit() {
     const { fromCode } = this.state.fromStation
     const { endCode } = this.state.endStation
-    this.submitElement.disabled = false
+    ticketState.setDisabled()
     ticketState.getTickets({date: moment(this.state.time).format("YYYY-MM-DD"), from_station: fromCode, end_station: endCode })
+  }
+
+  renderSubmit() {
+    if (ticketState.submitElement) {
+      return(
+        <div className={style.submit} onClick={() => { this.handleSubmit() }}>查询</div>
+      )
+    }
+
+    return(
+      <div className={style.disabled}>查询</div>
+    )
   }
 
   renderWeather() {
@@ -145,7 +166,6 @@ class WjFunny extends Component {
   renderTickets() {
     if (!ticketState.tickets) return false
 
-    this.submitElement.disabled = false
     if (ticketState.tickets == "error") {
       return (
         <div className={style["tickets-container"]}>
@@ -155,9 +175,19 @@ class WjFunny extends Component {
       )
     }
 
+    if(ticketState.tickets.length == 0) {
+      const { fromStation, fromCode } = this.state.fromStation
+      const { endStation, endCode } = this.state.endStation
+      return (
+        <div className={style["tickets-container"]}>
+          <span className={style.errorMessage}><span className={style.errorMessage}>未找到{fromStation}</span>开往<span className={style.errorMessage}>{endStation}</span>的列车</span>
+        </div>
+      )
+    }
+
     return ticketState.tickets.map((item, i) =>{
-      const isStartText = item.from_station_no === "01" ? "过" : "始"
-      const isStartStyle = item.from_station_no === "01" ? `${style.guo}` : `${style.shi}`
+      const isStartText = item.from_station_no === "01" ? "始" : "过"
+      const isStartStyle = item.from_station_no === "01" ? `${style.shi}` : `${style.guo}`
       const timeArr = item.tTime.split(":")
 
       return ( 
@@ -226,8 +256,8 @@ class WjFunny extends Component {
         </section>
         <section className={style.train}>
           <div className={style["from_to"]}>
-            <input type="text" className={style["location-input"]} defaultValue={fromStation} onClick={() => {this.handleShowList(1)}} /> -> 
-            <input type="text" className={style["location-input"]} defaultValue={endStation} onClick={() => {this.handleShowList(2)}} />
+            <input type="text" className={style["location-input"]} value={fromStation} onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(1)}} /> -> 
+            <input type="text" className={style["location-input"]} value={endStation} onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(2)}} />
           </div>
           <div className={style["out-date"]} onClick={() => {this.handleOpen()}}>
             <span className={style["date-text"]}>出发日期</span>
@@ -242,7 +272,7 @@ class WjFunny extends Component {
               max={new Date(moment().add(28, 'days'))}
               onCancel={() => this.handleCancel()} />
           </div>
-          <div className={style.submit} onClick={() => { this.handleSubmit() }} ref={(node) => this.submitElement = node}>查询</div>
+          { this.renderSubmit() }
         </section>
         <div className={`${style.list} ${this.state.showList ? style.show : style.hide}`}>
           <List list={weatherState.train_location}
