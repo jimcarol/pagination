@@ -162,7 +162,6 @@ class WjFunny extends Component {
 
       return ( 
         <div key={i} className={style["tickets-container"]} >
-          <div className={style.stationTitle}>{item.fSation}开往{item.tSation}的所有列车</div>
           <div className={style["station-message"]}>
             <div>{item.tId}</div>
             <div>
@@ -253,6 +252,7 @@ class WjFunny extends Component {
           />
         </div>
         <div className={style.tickets}>
+        <div className={style.stationTitle}><span className={style.errorMessage}>{fromStation}</span>开往<span className={style.errorMessage}>{endStation}</span>的所有列车</div>
           {this.renderTickets()}
         </div>
       </div>

@@ -148,12 +148,15 @@
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
   }
 
   .station-message, .station-ticket-num {
     width: 100%;
     display: flex;
     justify-content:space-around;
+    padding-bottom: 5px;
   }
 
   .station-ticket-num span, .station-message div {
