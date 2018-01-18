@@ -2,13 +2,14 @@
   display: flex;
   width:100%;
   justify-content:space-around;
+  flex-direction: column;
   align-items:flex-start;
   position: fixed;
   top: 10px;
   font-size: 50px;
 }
 
-.content {
+.content, .train{
   display: flex;
   flex-direction: column;
   justify-content:space-around;
@@ -50,10 +51,24 @@
   font-size: 60px;
 }
 
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
 @media screen and (max-width: 875px) {
   .main {
     font-size: 14px !important;
+    position: relative;
   }
+
+  .train {
+    margin-right: 9px;
+  }
+
   .wj {
     font-size: 14px !important;
     font-weight: normal;
@@ -63,5 +78,121 @@
   .after_weather_date {
     color: red;
     font-size: 18px;
+  }
+
+  .from_to {
+    line-height: 35px !important;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin: 6px 0px;
+  }
+
+  .location-input {
+    height: 35px !important;
+    border: none;
+    padding: 0px 0px;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .out-date {
+    height: 40px;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .date-text {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 0px 0px;
+    font-size: 10px;
+    color: #ccc;
+  }
+
+  .date {
+    display: inline-block;
+    height: 40px;
+    line-height: 55px;
+  }
+
+  .submit {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    background-color: #4d90fe;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .list {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    overflow: scroll;
+  }
+
+  .tickets {
+    width: 100%;
+    margin-top:10px;
+  }
+
+  .tickets-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .station-message, .station-ticket-num {
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+  }
+
+  .station-ticket-num span, .station-message div {
+    flex-grow: 1;
+  }
+
+  .station-ticket-num span {
+    color: #ccc;
+    font-size: 12px;
+  }
+
+  .delp_black {
+    color: black !important;
+    font-weight: 500;
+  }
+
+  .guo {
+    background-color: #07f;
+  }
+
+  .shi {
+    background-color: yellow;
+  }
+
+  .stationTitle{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .errorMessage {
+    color: #26a306;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px;
   }
 }
