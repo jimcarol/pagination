@@ -154,7 +154,7 @@ class WjFunny extends Component {
     if (item.tId.charAt(0) === "G" || item.tId.charAt(0) === "D") {
       return(
         <div className={style["station-ticket-num"]}>
-          <span className={`${item.bcSeat != "无" ? style["delp_black"] : ''}`}>商务:{item.bcSeat}</span>
+          <span className={`${(item.bcSeat&&item.bcSeat != "无") ? style["delp_black"] : ''}`}>商务:{item.bcSeat}</span>
           <span className={`${item.fcSeat != "无" ? style["delp_black"] : ''}`}>一等:{item.fcSeat}</span>
           <span className={`${item.scSeat != "无" ? style["delp_black"] : ''}`}>二等:{item.scSeat}</span>
         </div>
@@ -163,8 +163,8 @@ class WjFunny extends Component {
 
     return(
       <div className={style["station-ticket-num"]}>
-        <span className={`${item.ruanwo != "无" ? style["delp_black"] : ''}`}>软卧:{item.ruanwo}</span>
-        <span className={`${item.yingwo != "无" ? style["delp_black"] : ''}`}>硬卧:{item.yingwo}</span>
+        <span className={`${(item.ruanwo&&item.ruanwo != "无") ? style["delp_black"] : ''}`}>软卧:{item.ruanwo}</span>
+        <span className={`${(item.yingwo&&item.yingwo != "无") ? style["delp_black"] : ''}`}>硬卧:{item.yingwo}</span>
         <span className={`${item.yingzuo != "无" ? style["delp_black"] : ''}`}>硬座:{item.yingzuo}</span>
         <span className={`${item.wuzuo != "无" ? style["delp_black"] : ''}`}>无座:{item.wuzuo}</span>
       </div>
