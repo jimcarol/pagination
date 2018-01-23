@@ -44,6 +44,7 @@
     "postcss": "^6.0.16",
     "postcss-loader": "^2.0.10",
     "react": "^16.2.0",
-    "react-mobile-datepicker": "^3.0.8"
+    "react-mobile-datepicker": "^3.0.8",
+    "underscore": "^1.8.3"
   }
 }

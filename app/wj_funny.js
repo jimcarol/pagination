@@ -47,6 +47,10 @@ class Ticket {
     this.submitElement = false
   }
 
+  @action resetTickets = () => {
+    this.tickets = ""
+  }
+
   @action getTickets = async (params) => {
     let data = [] 
     await axios.get("http://116.196.113.206/api/weather/train_ticket", { 
@@ -105,6 +109,10 @@ class WjFunny extends Component {
     this.setState({fromStation: {fromStation: station.name, fromCode: station.code}, showList: false})
   }
 
+  handleQuit() {
+    this.setState({showList: false})
+  }
+
   handleEndStation(station) {
     this.setState({endStation: {endStation: station.name, endCode: station.code}, showList: false})
   }
@@ -143,7 +151,7 @@ class WjFunny extends Component {
   }
 
   renderTicketNum(item) {
-    if (item.tId.charAt(0) === "G") {
+    if (item.tId.charAt(0) === "G" || item.tId.charAt(0) === "D") {
       return(
         <div className={style["station-ticket-num"]}>
           <span className={`${item.bcSeat != "无" ? style["delp_black"] : ''}`}>商务:{item.bcSeat}</span>
@@ -193,26 +201,24 @@ class WjFunny extends Component {
       return ( 
         <div key={i} className={style["tickets-container"]} >
           <div className={style["station-message"]}>
-            <div>{item.tId}</div>
-            <div>
+            <div className={style.No}>{item.tId}</div>
+            <div className={style.start}>
               <div>
                 <span className={isStartStyle}>{isStartText}</span>
-                {item.fSation}
-              </div>
-              <div>
-                {item.sTime}
+                {item.fSation}<br />
+                <span className={style.stime}>{item.sTime}</span>
               </div>
             </div>
-            <div>
+            <div className={style.range}>
               <div>-----------></div>
-              <div>共{timeArr[0]}小时{timeArr[1]}分钟</div>
+              <div className={style.timeArr}>共{timeArr[0]}小时{timeArr[1]}分钟</div>
             </div>
-            <div>
+            <div className={style.end}>
               <div>
                 <span className={style.guo}>过</span>
                 {item.tSation}
               </div>
-              <div>
+              <div className={style.eTime}>
                 {item.eTime}
               </div>
             </div>
@@ -279,6 +285,7 @@ class WjFunny extends Component {
             stationType={this.state.stationType} 
             handleFromStation={(station) => this.handleFromStation(station)}
             handleEndStation={(station) => this.handleEndStation(station)}
+            handleQuit={() => this.handleQuit()}
           />
         </div>
         <div className={style.tickets}>
