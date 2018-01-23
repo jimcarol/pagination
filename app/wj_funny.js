@@ -262,8 +262,8 @@ class WjFunny extends Component {
         </section>
         <section className={style.train}>
           <div className={style["from_to"]}>
-            <input type="text" className={style["location-input"]} value={fromStation} onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(1)}} /> -> 
-            <input type="text" className={style["location-input"]} value={endStation} onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(2)}} />
+            <input type="text" className={style["location-input"]} value={fromStation} readOnly="readOnly" onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(1)}} /> -> 
+            <input type="text" className={style["location-input"]} value={endStation} readOnly="readOnly" onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(2)}} />
           </div>
           <div className={style["out-date"]} onClick={() => {this.handleOpen()}}>
             <span className={style["date-text"]}>出发日期</span>
@@ -281,12 +281,13 @@ class WjFunny extends Component {
           { this.renderSubmit() }
         </section>
         <div className={`${style.list} ${this.state.showList ? style.show : style.hide}`}>
-          <List list={weatherState.train_location}
+          { this.state.showList && <List list={weatherState.train_location}
             stationType={this.state.stationType} 
             handleFromStation={(station) => this.handleFromStation(station)}
             handleEndStation={(station) => this.handleEndStation(station)}
             handleQuit={() => this.handleQuit()}
-          />
+            />
+          }
         </div>
         <div className={style.tickets}>
         <div className={style.stationTitle}><span className={style.errorMessage}>{fromStation}</span>开往<span className={style.errorMessage}>{endStation}</span>的所有列车</div>

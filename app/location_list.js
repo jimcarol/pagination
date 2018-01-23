@@ -11,6 +11,12 @@ class List extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log("=====")
+    console.log(this.inputElement.value)
+    this.inputElement.focus()
+  }
+
   handleSelectStation(station) {
     const { handleFromStation, handleEndStation, stationType} = this.props
     if (stationType === 1) {
@@ -111,7 +117,7 @@ class List extends Component {
         <div className={style.top}>
           <div className={style["search-container"]}>
             <span /> 
-            <input type="text" placeholder="请输入城市/车站名" onKeyUp={(e) => { this.searchStation(e)}}/>
+            <input type="text" placeholder="请输入城市/车站名" onKeyUp={(e) => { this.searchStation(e)}} ref={(node) => { this.inputElement = node}}/>
             <span className={style.quit} onClick={() => { this.quit() }}>取消</span>
           </div>
           <div className={`${style["searchResultContainer"]} ${resultStyle}`}>
