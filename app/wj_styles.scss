@@ -91,6 +91,22 @@ body {
     margin: 6px 0px;
   }
 
+  .arrow {
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    background-image: url("../asset/arrow-small-right.png");
+    background-repeat: no-repeat;
+    margin-top: 15px;
+  }
+
+  .leargeArrow img {
+    width: 80%;
+    height: 15px;
+    /*background-image: url("../asset/arrow-large-right.png");*/
+    /*background-repeat: no-repeat;*/
+  }
+
   .location-input {
     height: 35px !important;
     border: none;
@@ -225,7 +241,7 @@ body {
 
   .timeArr {
     color: #B8B8B8;
-    font-size: 5px;
+    font-size: 8px;
   }
 
   .stationTitle{

@@ -210,7 +210,7 @@ class WjFunny extends Component {
               </div>
             </div>
             <div className={style.range}>
-              <div>-----------></div>
+              <div className={style.leargeArrow} ><img src="../asset/arrow-large-right.png" /></div>
               <div className={style.timeArr}>共{timeArr[0]}小时{timeArr[1]}分钟</div>
             </div>
             <div className={style.end}>
@@ -262,7 +262,8 @@ class WjFunny extends Component {
         </section>
         <section className={style.train}>
           <div className={style["from_to"]}>
-            <input type="text" className={style["location-input"]} value={fromStation} readOnly="readOnly" onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(1)}} /> -> 
+            <input type="text" className={style["location-input"]} value={fromStation} readOnly="readOnly" onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(1)}} />
+            <span className={style.arrow} />
             <input type="text" className={style["location-input"]} value={endStation} readOnly="readOnly" onChange={(e) => {this.handleChange(e)}} onClick={() => {this.handleShowList(2)}} />
           </div>
           <div className={style["out-date"]} onClick={() => {this.handleOpen()}}>
