@@ -120,7 +120,8 @@ class List extends Component {
             <input type="text" placeholder="请输入城市/车站名" 
               onKeyUp={(e) => { this.searchStation(e)}}
               ref={(node) => { this.inputElement = node}}
-              onkeyDown={(e) => { this.searchStation(e)}}/>
+              onkeyDown={(e) => { this.searchStation(e)}}
+              onChange={(e) => { this.searchStation(e)}}/>
             <span className={style.quit} onClick={() => { this.quit() }}>取消</span>
           </div>
           <div className={`${style["searchResultContainer"]} ${resultStyle}`}>
