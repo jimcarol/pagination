@@ -14,7 +14,7 @@ class Weather {
   @observable train_location = {data: {}, name: []}
   @action initData = async () => {
     let weather_data, train_location
-    await axios.get("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
+    await axios.get("http://39.108.10.190/api/weather", { method: 'GET', dataType: 'JSONP'})
     .then((result) => {
         weather_data = result.data
     })
@@ -22,7 +22,7 @@ class Weather {
       this.weather = weather_data
     });
 
-    await axios.get("http://116.196.113.206/api/weather/train_location", { method: 'GET', dataType: 'JSONP'})
+    await axios.get("http://39.108.10.190/api/weather/train_location", { method: 'GET', dataType: 'JSONP'})
     .then((result) => {
         train_location = result.data
     })

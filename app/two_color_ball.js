@@ -10,7 +10,7 @@ class Weather {
   @observable weather = {today: {}, after: []}
   @action initData = async () => {
     let weather_data
-    await axios.get("http://116.196.113.206/api/weather", { method: 'GET', dataType: 'JSONP'})
+    await axios.get("http://39.108.10.190/api/weather", { method: 'GET', dataType: 'JSONP'})
     .then((result) => {
         console.log("/......",result)
         weather_data = result.data
